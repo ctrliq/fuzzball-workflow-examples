@@ -2,7 +2,7 @@ version: v1
 jobs:
   hello-world:
     image:
-      uri: docker://docker.io/library/alpine:latest
+      uri: docker://alpine:latest
     command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}']
     resource:
       cpu:
