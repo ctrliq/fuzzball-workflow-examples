@@ -1,0 +1,236 @@
+--- 
+version: v1
+volumes:
+  openfoam-data-volume:
+    name: openfoam-data-volume
+    reference: volume://user/ephemeral
+
+jobs:
+
+  prepare-motorbike-case:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+    command: ["/bin/bash", "-c", "cp -r $WM_PROJECT_DIR/tutorials/incompressible/simpleFoam/motorBike .; \
+              cp motorBike/system/decomposeParDict.6 motorBike/system/decomposeParDict; \
+              sed -i 's/numberOfSubdomains\\ 6/numberOfSubdomains\\ 6/g' motorBike/system/decomposeParDict; \
+              sed -i 's/\\(3 2 1\\)/3 2 1/g' motorBike/system/decomposeParDict; \
+              cat motorBike/system/decomposeParDict;"]
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    cwd: /data
+    mounts:
+      openfoam-data-volume:
+        location: /data
+
+  setup-blockmesh-decompose-par:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; \
+               mkdir -p constant/triSurface && \
+               cp -f $FOAM_TUTORIALS/resources/geometry/motorBike.obj.gz constant/triSurface/; \
+               surfaceFeatureExtract; \
+               blockMesh; \
+               decomposePar;"]
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["prepare-motorbike-case"]
+
+  snappy-hex-mesh:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; snappyHexMesh -overwrite -parallel;"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["setup-blockmesh-decompose-par"]
+
+  toposet:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; topoSet -parallel;"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["snappy-hex-mesh"]
+
+
+  set-initial-conditions:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; \
+              source /usr/lib/openfoam/openfoam2212/bin/tools/RunFunctions; \
+              restore0Dir -processor;"]
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["toposet"]
+
+  patch-summary:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; patchSummary -parallel;"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["set-initial-conditions"]
+
+  potential-foam:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; potentialFoam -writephi -parallel"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["patch-summary"]
+
+  check-mesh:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; checkMesh -parallel -writeFields '(nonOrthoAngle)' -constant"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["potential-foam"]
+
+  simple-foam:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+      - OMPI_MCA_pml=^ucx
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; simpleFoam -parallel"]
+    multinode:
+      nodes: 1
+      implementation: openmpi
+    resource:
+      cpu:
+        cores: 6
+        affinity: NUMA
+      memory:
+        size: 4GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["check-mesh"]
+
+  reconstruct-mesh:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+    command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; \
+               reconstructParMesh -constant; reconstructPar -latestTime;"]
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    cwd: /data/motorBike
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["simple-foam"]
