@@ -32,7 +32,7 @@ To view outputs logged by the workflow, execute the following command:
 
 ```text
 $ fuzzball workflow logs 3ff3095e-5f78-4054-a5cd-aa3acecf8be1
-hello_world          | Hello, world! Hostname aede50f3-c171-42c2-831a-a0566ba9989d, Namespace /mnt:[4026533570]
+hello_world          | Hello, world! Hostname aede50f3-c171-42c2-831a-a0566ba9989d
 ```
 
 ### Using the Fuzzball Web UI
