@@ -23,7 +23,7 @@ To monitor the workflow's status, run the following command:
 $ fuzzball workflow status --watch 3ff3095e-5f78-4054-a5cd-aa3acecf8be1
 KIND       | STATUS   | NAME                                          | STARTED               | FINISHED             
 Workflow   | Finished | 3ff3095e-5f78-4054-a5cd-aa3acecf8be1          | 2023-01-20 02:24:54PM | 2023-01-20 02:25:45PM
-Image      | Finished | docker://docker.io/library/alpine:latest      | 2023-01-20 02:24:54PM | 2023-01-20 02:25:11PM
+Image      | Finished | docker://alpine:latest                        | 2023-01-20 02:24:54PM | 2023-01-20 02:25:11PM
 Job        | Finished | hello-world                                   | 2023-01-20 02:25:28PM | 2023-01-20 02:25:29PM
 Completion | Finished | Completion hooks                              | 2023-01-20 02:25:45PM | 2023-01-20 02:25:45PM
 ```
