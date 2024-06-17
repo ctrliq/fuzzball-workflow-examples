@@ -1,7 +1,7 @@
 # Hello, world
 
 A simple "Hello, world" workflow which prints the host which the job is running
-on and its namespace using a public Alpine container from Dockerhub.
+on using a public Alpine container from Dockerhub.
 
 ## Running the Workflow
 
