@@ -14,25 +14,35 @@ To start this workflow using the CLI, run the following command:
 
 ```text
 $ fuzzball workflow start hello-world.yaml
-Workflow "3ff3095e-5f78-4054-a5cd-aa3acecf8be1" started.
+Workflow "065e8665-f025-4247-8783-d4abdb7723be" started.
 ```
 
 To monitor the workflow's status, run the following command:
 
 ```text
-$ fuzzball workflow status --watch 3ff3095e-5f78-4054-a5cd-aa3acecf8be1
-KIND       | STATUS   | NAME                                          | STARTED               | FINISHED             
-Workflow   | Finished | 3ff3095e-5f78-4054-a5cd-aa3acecf8be1          | 2023-01-20 02:24:54PM | 2023-01-20 02:25:45PM
-Image      | Finished | docker://alpine:latest                        | 2023-01-20 02:24:54PM | 2023-01-20 02:25:11PM
-Job        | Finished | hello-world                                   | 2023-01-20 02:25:28PM | 2023-01-20 02:25:29PM
-Completion | Finished | Completion hooks                              | 2023-01-20 02:25:45PM | 2023-01-20 02:25:45PM
+$ fuzzball workflow describe 065e8665-f025-4247-8783-d4abdb7723be
+Name:      hello-world.yaml
+Email:     bphan@ciq.co
+UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
+Status:    STAGE_STATUS_FINISHED
+Created:   2024-06-14 04:11:03PM
+Started:   2024-06-14 04:11:03PM
+Finished:  2024-06-14 04:11:43PM
+Error:     
+
+
+Stages:
+KIND     | STATUS   | NAME                                     | STARTED               | FINISHED
+Workflow | Finished | 065e8665-f025-4247-8783-d4abdb7723be     | 2024-06-14 04:11:03PM | 2024-06-14 04:11:43PM
+Image    | Finished | docker://docker.io/library/alpine:latest | 2024-06-14 04:11:04PM | 2024-06-14 04:11:22PM
+Job      | Finished | hello-world                              | 2024-06-14 04:11:40PM | 2024-06-14 04:11:42PM
 ```
 
 To view outputs logged by the workflow, execute the following command:
 
 ```text
-$ fuzzball workflow logs 3ff3095e-5f78-4054-a5cd-aa3acecf8be1
-hello-world          | Hello, world! Hostname aede50f3-c171-42c2-831a-a0566ba9989d
+$ fuzzball workflow logs 065e8665-f025-4247-8783-d4abdb7723be hello-world
+Hello, world! Hostname hello-world
 ```
 
 ### Using the Fuzzball Web UI
