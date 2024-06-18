@@ -20,6 +20,10 @@ simulation which executes solver simpleFoam. Finally, the mesh and partitions of
 the decomposed model are reconstructed using reconstructParMesh and
 reconstructPar respectively.
 
+All steps of the workflow use an OpenFOAM container on
+[Dockerhub](https://hub.docker.com/r/opencfd/openfoam-default) published by
+OpenCFD.
+
 ## Running the Workflow
 
 The following section walks through how to run the Fuzzball workflow
