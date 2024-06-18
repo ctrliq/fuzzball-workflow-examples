@@ -123,3 +123,9 @@ workflow's status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select job `run-lammps` and navigate to
 the logs tab.
+
+## Extending the Workflow
+
+For more information on how to extend this workflow for your needs, please see
+the
+[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
