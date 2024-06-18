@@ -1,0 +1,86 @@
+version: v1
+volumes:
+  blast-volume:
+    name: blast-volume
+    reference: volume://user/ephemeral
+    egress:
+      - source:
+          uri: file://results/blastp.out
+        destination:
+          uri:
+          secret:
+jobs:
+  create-dirs:
+    image:
+      uri: docker://ncbi/blast:2.12.0
+    command: [mkdir, blastdb, queries, fasta, results, blastdb_custom]
+    cwd: /data
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    mounts:
+      blast-volume:
+        location: /data
+  retrieve-query-sequence:
+    image:
+      uri: docker://ncbi/blast:2.12.0
+    command: ["/bin/sh", "-c", "efetch -db protein -format fasta -id P01349 > P01349.fsa"]
+    cwd: /data/queries
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    mounts:
+      blast-volume:
+        location: /data
+    requires: [create-dirs]
+  retrieve-database-sequences:
+    image:
+      uri: docker://ncbi/blast:2.12.0
+    command: ["/bin/sh", "-c", "efetch -db protein -format fasta -id Q90523,P80049,P83981,P83982,P83983,P83977,P83984,P83985,P27950 > nurse-shark-proteins.fsa"]
+    cwd: /data/fasta
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    mounts:
+      blast-volume:
+        location: /data
+    requires: [create-dirs]
+  make-blast-database:
+    image:
+      uri: docker://ncbi/blast:2.12.0
+    command: ["/bin/sh", "-c", "makeblastdb -in /data/fasta/nurse-shark-proteins.fsa -dbtype prot -parse_seqids -out nurse-shark-proteins -title 'Nurse shark proteins' -taxid 7801 -blastdb_version 5"]
+    cwd: /data/fasta
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    mounts:
+      blast-volume:
+        location: /data
+    requires: [retrieve-query-sequence, retrieve-database-sequences]
+  run-blast:
+    image:
+      uri: docker://ncbi/blast:2.12.0
+    command: [blastp, -num_threads, 8, -query, /data/queries/P01349.fsa, -db, /data/fasta/nurse-shark-proteins, -out, /data/results/blastp.out]
+    cwd: /data
+    resource:
+      cpu:
+        cores: 8
+        affinity: NUMA
+      memory:
+        size: 30GiB
+    mounts:
+      blast-volume:
+        location: /data
+    requires: [make-blast-database]
