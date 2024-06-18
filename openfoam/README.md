@@ -261,3 +261,9 @@ resource:
   memory:
     size: 4GiB
 ```
+
+## Extending the Workflow
+
+For more information on how to extend this workflow for your needs, please see
+the
+[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
