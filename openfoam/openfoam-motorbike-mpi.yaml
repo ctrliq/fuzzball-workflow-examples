@@ -3,6 +3,12 @@ volumes:
   openfoam-data-volume:
     name: openfoam-data-volume
     reference: volume://user/ephemeral
+    egress:
+      - source:
+          uri: file://motorbike-example-results.tar.gz
+        destination:
+          uri:
+          secret:
 
 jobs:
 
@@ -231,3 +237,21 @@ jobs:
       openfoam-data-volume:
         location: /data
     requires: ["simple-foam"]
+
+  tar-results:
+    image:
+      uri: docker://opencfd/openfoam-default:2212
+    env:
+      - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
+    command: ["/bin/bash", "-c", "tar -zcvf motorbike-example-results.tar.gz motorBike"]
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GiB
+    cwd: /data
+    mounts:
+      openfoam-data-volume:
+        location: /data
+    requires: ["reconstruct-mesh"]

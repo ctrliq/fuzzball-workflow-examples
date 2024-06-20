@@ -18,11 +18,19 @@ cores. Initial conditions for the simulation are set followed by another series
 of parallel tasks which include patchSummary, potentialFoam, checkMesh, and the
 simulation which executes solver simpleFoam. Finally, the mesh and partitions of
 the decomposed model are reconstructed using reconstructParMesh and
-reconstructPar respectively.
+reconstructPar respectively. Finally the case directory is compressed and
+egressed from the workflow to a destination of the user's choice.
 
 All steps of the workflow use an OpenFOAM container on
 [Dockerhub](https://hub.docker.com/r/opencfd/openfoam-default) published by
 OpenCFD.
+
+## Prerequsites
+
+This workflow egresses an output file. In order to write the output file to a S3
+bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
+secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
+instructions on how to set one up.
 
 ## Running the Workflow
 
@@ -30,6 +38,25 @@ The following section walks through how to run the Fuzzball workflow
 `openfoam-motorbike-mpi.yaml` using the CLI and GUI.
 
 ### Using the CLI
+
+First update the workflow's egress destination with a S3 URI and Fuzzball secret
+. The volumes block below writes workflow output file
+`motorbike-example-results.tar.gz` to destination `s3://my-bucket/my-dir/` and
+names the output file `motorbike-example-results.tar.gz`. The credentials used
+to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
+
+```text
+volumes:
+  openfoam-data-volume:
+    name: openfoam-data-volume
+    reference: volume://user/ephemeral
+    egress:
+      - source:
+          uri: file://motorbike-example-results.tar.gz
+        destination:
+          uri: s3://my-bucket/my-dir/motorbike-example-results.tar.gz
+          secret: secret://user/my-s3-bucket-secret
+```
 
 To start this workflow using the CLI, run the following command:
 
@@ -91,6 +118,27 @@ workflow's status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select a job (for example,
 `setup-blockmesh-decompose-par`) and navigate to the logs tab.
+
+### Viewing Results
+
+The CLI example above has egressed result file `motorbike-example-results.tar.gz`
+to an S3 bucket at destination
+`s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz`. To pull down
+the result file to your working directory, the AWS CLI will be used.
+
+```text
+$ aws s3 cp s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz . 
+download: s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz to ./motorbike-example-results.tar.gz
+```
+
+The results archived can be decompressed using command:
+
+```text
+$ tar -zxf ./motorbike-example-results.tar.gz
+```
+
+After decompressing the archive, you can post-process your results and create
+visualizations using open source software ParaView.
 
 ## Modifying the Workflow to Run on More Cores
 
