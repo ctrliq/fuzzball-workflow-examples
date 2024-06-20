@@ -62,13 +62,13 @@ To start this workflow using the CLI, run the following command:
 
 ```text
 $ fuzzball workflow start openfoam-motorbike-mpi.yaml
-Workflow "34a21687-6936-4cbe-a8dc-5428cd802d72" started.
+Workflow "9324e249-33d3-4424-8867-27d67b6f98a3" started.
 ```
 
 To monitor the workflow's status, run the following command:
 
 ```text
-$ fuzzball workflow describe 34a21687-6936-4cbe-a8dc-5428cd802d72
+$ fuzzball workflow describe 9324e249-33d3-4424-8867-27d67b6f98a3
 Name:      openfoam-motorbike-mpi.yaml
 Email:     bphan@ciq.co
 UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
@@ -80,27 +80,30 @@ Error:
 
 
 Stages:
-KIND     | STATUS   | NAME                                   | STARTED               | FINISHED
-Workflow | Finished | 34a21687-6936-4cbe-a8dc-5428cd802d72   | 2024-05-21 03:22:52PM | 2024-05-21 03:37:35PM
-Volume   | Finished | openfoam-data-volume                   | 2024-05-21 03:22:53PM | 2024-05-21 03:23:11PM
-Image    | Finished | docker://opencfd/openfoam-default:2212 | 2024-05-21 03:22:53PM | 2024-05-21 03:23:09PM
-Job      | Finished | prepare-motorbike-case                 | 2024-05-21 03:23:26PM | 2024-05-21 03:23:31PM
-Job      | Finished | setup-blockmesh-decompose-par          | 2024-05-21 03:23:49PM | 2024-05-21 03:24:08PM
-Job      | Finished | snappy-hex-mesh                        | 2024-05-21 03:25:22PM | 2024-05-21 03:26:43PM
-Job      | Finished | toposet                                | 2024-05-21 03:27:42PM | 2024-05-21 03:27:48PM
-Job      | Finished | set-initial-conditions                 | 2024-05-21 03:28:46PM | 2024-05-21 03:28:52PM
-Job      | Finished | patch-summary                          | 2024-05-21 03:29:57PM | 2024-05-21 03:30:05PM
-Job      | Finished | potential-foam                         | 2024-05-21 03:31:23PM | 2024-05-21 03:31:32PM
-Job      | Finished | check-mesh                             | 2024-05-21 03:32:58PM | 2024-05-21 03:33:05PM
-Job      | Finished | simple-foam                            | 2024-05-21 03:33:59PM | 2024-05-21 03:36:49PM
-Job      | Finished | reconstruct-mesh                       | 2024-05-21 03:37:04PM | 2024-05-21 03:37:19PM
+KIND     | STATUS   | NAME                                    | STARTED               | FINISHED
+Workflow | Finished | 9324e249-33d3-4424-8867-27d67b6f98a3    | 2024-06-20 04:04:16PM | 2024-06-20 04:20:28PM
+Volume   | Finished | openfoam-data-volume                    | 2024-06-20 04:04:17PM | 2024-06-20 04:04:40PM
+Image    | Finished | docker://opencfd/openfoam-default:2212  | 2024-06-20 04:04:17PM | 2024-06-20 04:04:34PM
+Job      | Finished | prepare-motorbike-case                  | 2024-06-20 04:04:55PM | 2024-06-20 04:05:01PM
+Job      | Finished | setup-blockmesh-decompose-par           | 2024-06-20 04:05:15PM | 2024-06-20 04:05:26PM
+Job      | Finished | snappy-hex-mesh                         | 2024-06-20 04:06:22PM | 2024-06-20 04:07:39PM
+Job      | Finished | toposet                                 | 2024-06-20 04:08:39PM | 2024-06-20 04:08:46PM
+Job      | Finished | set-initial-conditions                  | 2024-06-20 04:09:42PM | 2024-06-20 04:09:49PM
+Job      | Finished | patch-summary                           | 2024-06-20 04:10:55PM | 2024-06-20 04:11:03PM
+Job      | Finished | potential-foam                          | 2024-06-20 04:12:15PM | 2024-06-20 04:12:23PM
+Job      | Finished | check-mesh                              | 2024-06-20 04:13:19PM | 2024-06-20 04:13:29PM
+Job      | Finished | simple-foam                             | 2024-06-20 04:14:25PM | 2024-06-20 04:17:40PM
+Job      | Finished | reconstruct-mesh                        | 2024-06-20 04:17:55PM | 2024-06-20 04:18:11PM
+Job      | Finished | tar-results                             | 2024-06-20 04:18:26PM | 2024-06-20 04:19:31PM
+File     | Finished | file://motorbike-example-results.tar.gz | 2024-06-20 04:19:47PM | 2024-06-20 04:20:12PM
+         |          | ->...                                   |                       | 
 ```
 
 To view outputs logged by the workflow, use the `fuzzball workflow log` command.
 Provide the workflow UUID and job name. For example:
 
 ```text
-$ fuzzball workflow logs 34a21687-6936-4cbe-a8dc-5428cd802d72 set-initial-conditions
+$ fuzzball workflow logs 9324e249-33d3-4424-8867-27d67b6f98a3 set-initial-conditions
 Restore 0/ from 0.orig/  [processor directories]
 ```
 
