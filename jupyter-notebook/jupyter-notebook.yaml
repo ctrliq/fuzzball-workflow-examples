@@ -1,0 +1,25 @@
+version: v1
+volumes:
+  jupyter-volume:
+    name: jupyter-volume
+    reference: volume://user/ephemeral
+jobs:
+  jupyter:
+    image:
+      uri: docker://quay.io/jupyter/minimal-notebook:latest
+    mounts:
+      jupyter-volume:
+        location: /data
+    command:
+      - /bin/sh
+      - '-c'
+      - >-
+        /opt/conda/bin/jupyter notebook --ip=0.0.0.0 --allow-root --no-browser
+        --NotebookApp.token=$JUPYTER_TOKEN --notebook-dir=/data
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GB
+      exclusive: true
