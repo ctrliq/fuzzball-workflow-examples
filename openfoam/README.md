@@ -99,15 +99,19 @@ OpenFOAM motorbike tutorial workflow on more cores by modifying
 `openfoam-motorbike-mpi.yaml`. In this example, we will run the parallel steps
 using 8 cores and node 2 for a total of 16 cores.
 
-Currently in job `prepare-motorbike-case`, there are some `sed` commands which
-modify decomposeParDict. Modify the first `sed` command to change the number of
-subdomains from 6 to 16. Next, update the second `sed` command to update the
-coefficients to 3 numbers which are factors of 16. For example, 2, 2, and  4.
-The `sed` command in job `prepare-motorbike-case` should now look like this:
+First, in job `prepare-motorbike-case`, you will need to update input file
+`motorBike/system/decomposeParDict` to decompose the model into 16 subdomains
+and update the coefficients in the file to 3 integers which are factors of 16
+(ex. 2, 2, and 4). You can update the contents of this file using the `sed`
+command. Below is an example job command for job `prepare-motorbike-case` which
+sets up the simulations and meshing steps to run on 16 cores.
 
 ```text
-sed -i 's/numberOfSubdomains\\ 6/numberOfSubdomains\\ 16/g' motorBike/system/decomposeParDict; \
-sed -i 's/\\(3 2 1\\)/2 2 4/g' motorBike/system/decomposeParDict; \
+command: ["/bin/bash", "-c", "cp -r $WM_PROJECT_DIR/tutorials/incompressible/simpleFoam/motorBike .; \
+            cp motorBike/system/decomposeParDict.6 motorBike/system/decomposeParDict; \
+            sed -i 's/numberOfSubdomains\\ 6/numberOfSubdomains\\ 16/g' motorBike/system/decomposeParDict; \
+            sed -i 's/\\(3 2 1\\)/2 2 4/g' motorBike/system/decomposeParDict; \
+            cat motorBike/system/decomposeParDict;"]
 ```
 
 Update the resource requests of parallel jobs `snappy-hex-mesh`,`toposet`,
@@ -128,7 +132,7 @@ mentioned should have a resource block as follows:
 ```text
 resource:
   cpu:
-    cores: 6
+    cores: 8
     affinity: NUMA
   memory:
     size: 4GiB

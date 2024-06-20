@@ -1,4 +1,3 @@
---- 
 version: v1
 volumes:
   openfoam-data-volume:
@@ -14,8 +13,6 @@ jobs:
       - WM_PROJECT_DIR=/usr/lib/openfoam/openfoam2212
     command: ["/bin/bash", "-c", "cp -r $WM_PROJECT_DIR/tutorials/incompressible/simpleFoam/motorBike .; \
               cp motorBike/system/decomposeParDict.6 motorBike/system/decomposeParDict; \
-              sed -i 's/numberOfSubdomains\\ 6/numberOfSubdomains\\ 6/g' motorBike/system/decomposeParDict; \
-              sed -i 's/\\(3 2 1\\)/3 2 1/g' motorBike/system/decomposeParDict; \
               cat motorBike/system/decomposeParDict;"]
     resource:
       cpu:
