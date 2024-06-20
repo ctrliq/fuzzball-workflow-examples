@@ -114,7 +114,7 @@ $ fuzzball workflow port-forward aa3b04f0-f245-4032-a7b1-5cef0acfaf6c jupyter 88
 ```
 
 Once the port is successfully forwarded, you should be able to access the
-Jupyter environment at `localhost:8888` in your browser.
+Jupyter environment at <http://localhost:8888> in your browser.
 
 ## Stopping the Workflow
 
