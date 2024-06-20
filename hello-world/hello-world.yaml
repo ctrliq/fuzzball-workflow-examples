@@ -2,8 +2,8 @@ version: v1
 jobs:
   hello-world:
     image:
-      uri: docker://docker.io/library/alpine:latest
-    command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}, Namespace $(readlink -f /proc/self/ns/mnt)"']
+      uri: docker://alpine:latest
+    command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}']
     resource:
       cpu:
         cores: 1
