@@ -3,7 +3,7 @@ jobs:
   hello-world:
     image:
       uri: docker://alpine:latest
-    command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}']
+    command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}"']
     resource:
       cpu:
         cores: 1
