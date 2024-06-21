@@ -34,8 +34,8 @@ The following section walks through how to run the Fuzzball workflow
 First update the workflow's egress destination with a S3 URI and Fuzzball secret
 . The volumes block below writes workflow output file `results/blastp.out` to
 destination `s3://my-bucket/my-dir/` and names the output file
-`my-blastp-results.out`. Credentials used to egress this file, a Fuzzball user
-secret `secret://user/my-s3-bucket-secret` is used.
+`my-blastp-results.out`. The credentials used to egress this file is Fuzzball
+user secret `secret://user/my-s3-bucket-secret`.
 
 ```text
 volumes:
