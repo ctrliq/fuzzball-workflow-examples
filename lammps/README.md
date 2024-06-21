@@ -237,8 +237,8 @@ Total wall time: 0:00:13
 ```
 
 Data in the logs can be used in the various
-[post-processing](https://www.lammps.org/prepost.html) which are compatible with
-LAMMPS.
+[post-processing tools](https://www.lammps.org/prepost.html) which are
+compatible with LAMMPS.
 
 ## Extending the Workflow
 
