@@ -99,7 +99,7 @@ Maximum file size: 1000000000B
 Adding sequences from FASTA; added 7 sequences in 0.244187 seconds.
 ```
 
-### Using the Fuzzball Web UI
+### Using the GUI
 
 Navigate to the workflow editor.
 

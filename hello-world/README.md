@@ -45,7 +45,7 @@ $ fuzzball workflow logs 065e8665-f025-4247-8783-d4abdb7723be hello-world
 Hello, world! Hostname hello-world
 ```
 
-### Using the Fuzzball Web UI
+### Using the GUI
 
 Navigate to the workflow editor.
 
