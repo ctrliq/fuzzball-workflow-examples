@@ -13,7 +13,7 @@ the running notebook and begin interacting with it through their browser.
 The following section walks through how to run the Fuzzball workflow
 `jupyter-notebook.yaml` using the CLI and GUI.
 
-### Using the CLI
+### Using the Fuzzball CLI
 
 To start this workflow using the CLI, run the following command:
 
@@ -76,7 +76,7 @@ $ fuzzball workflow log aa3b04f0-f245-4032-a7b1-5cef0acfaf6c jupyter
 [I 2024-06-18 21:47:01.814 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
 ```
 
-### Using the GUI
+### Using the Fuzzball GUI
 
 Navigate to the workflow editor.
 
@@ -121,7 +121,7 @@ Jupyter environment at <http://localhost:8888> in your browser.
 When you are done using your Jupyter environment, you can stop the job using
 the Fuzzball CLI or GUI.
 
-### Using the CLI
+### Using the Fuzzball CLI
 
 To stop the workflow using the Fuzzbal CLI, you can use the Fuzzball workflow
 stop subcommand. The required arguement for this subcommand is the workflow 
@@ -133,7 +133,7 @@ $ fuzzball workflow stop aa3b04f0-f245-4032-a7b1-5cef0acfaf6c
 Workflow stopped with name aa3b04f0-f245-4032-a7b1-5cef0acfaf6c
 ```
 
-### Using the GUI
+### Using the Fuzzball GUI
 
 Navigate to your workflow's status page through the workflows list page by
 clicking on its UUID.

@@ -7,7 +7,7 @@ be run on CIQ's product, [Fuzzball](https://ciq.com/products/fuzzball/).
 
 The following section walks through how to set up the Fuzzball CLI and GUI.
 
-### CLI
+### Fuzzball CLI
 
 If you plan to run these workflows using the Fuzzball CLI please see the
 [Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
@@ -17,7 +17,7 @@ After following the Fuzzball CLI quick start guide to get the CLI installed,
 create your context, and log into your context, you are ready to begin
 submitting jobs with the Fuzzball CLI.
 
-### GUI
+### Fuzzball GUI
 
 If you plan to run these workflows using the Fuzzball GUI, first clone this
 repository. Next, see the

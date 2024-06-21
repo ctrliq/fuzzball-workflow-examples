@@ -29,7 +29,7 @@ instructions on how to set one up.
 The following section walks through how to run the Fuzzball workflow
 `blast.yaml` using the CLI and GUI.
 
-### Using the CLI
+### Using the Fuzzball CLI
 
 First update the workflow's egress destination with a S3 URI and Fuzzball secret
 . The volumes block below writes workflow output file `results/blastp.out` to
@@ -99,7 +99,7 @@ Maximum file size: 1000000000B
 Adding sequences from FASTA; added 7 sequences in 0.244187 seconds.
 ```
 
-### Using the GUI
+### Using the Fuzzball GUI
 
 Navigate to the workflow editor.
 
