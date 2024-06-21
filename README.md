@@ -1,7 +1,7 @@
 # Fuzzball Workflow Examples
 
 The following respository contains a collection of example workflows which can
-be run on CIQ's product, Fuzzball.
+be run on CIQ's product, [Fuzzball](https://ciq.com/products/fuzzball/).
 
 ## Prerequsities
 
@@ -12,7 +12,8 @@ be run on CIQ's product, Fuzzball.
 ### CLI
 
 If you plan to run these workflows using the Fuzzball CLI please see the
-Fuzzball CLI quick start guide.
+[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
+and navigate to the CLI tab to get your environment set up.
 
 After following the Fuzzball CLI quick start guide to get the CLI installed,
 create your context, and log into your context, you are ready to begin
@@ -21,8 +22,9 @@ submitting jobs with the Fuzzball CLI.
 ### Web UI
 
 If you plan to run these workflows using the Fuzzball GUI, first clone this
-repository. Next, see the Fuzzball GUI quick start guide on how to access the
-Fuzzball GUI.
+repository. Next, see the
+[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
+and navigate to the GUI tab to get your environment set up.
 
 After signing into the Fuzzball GUI and selecting an account, you are aready to
 begin creating and submitting workflows. Workflows can be loaded into the GUI
