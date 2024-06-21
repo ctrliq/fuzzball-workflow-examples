@@ -37,7 +37,7 @@ instructions on how to set one up.
 The following section walks through how to run the Fuzzball workflow
 `openfoam-motorbike-mpi.yaml` using the CLI and GUI.
 
-### Using the CLI
+### Using the Fuzzball CLI
 
 First update the workflow's egress destination with a S3 URI and Fuzzball secret
 . The volumes block below writes workflow output file
