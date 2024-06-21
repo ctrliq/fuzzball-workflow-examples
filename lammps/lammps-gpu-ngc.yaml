@@ -18,7 +18,14 @@ jobs:
   run-lammps:
     image:
       uri: docker://nvcr.io/hpc/lammps:29Sep2021
-    command: [lmp, -k, on, g, 1, -sf, kk, -pk, kokkos, cuda/aware, on, neigh, full, comm, device, binsize, 2.8, -var, x, 8, -var, y, 4, -var, z, 8, -in, /data/in.lj.txt]
+    env:
+      - LAMMPS_INPUT_FILE_PATH=/data/in.lj.txt
+    command:
+      - /bin/sh
+      - '-c'
+      - >-
+        lmp -k on g 1 -sf kk -pk kokkos cuda/aware on neigh full comm device binsize 2.8 -var x 8 -var y 4 -var z 8
+        -in ${LAMMPS_INPUT_FILE_PATH}
     cwd: /data
     resource:
       cpu:
