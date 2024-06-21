@@ -107,12 +107,18 @@ $ fuzzball workflow logs 9324e249-33d3-4424-8867-27d67b6f98a3 set-initial-condit
 Restore 0/ from 0.orig/  [processor directories]
 ```
 
-### Using the Fuzzball Web UI
+### Using the Fuzzball GUI
 
 Navigate to the workflow editor.
 
 Open the workflow YAML `openfoam-motorbike-mpi.yaml` in the Fuzzball GUI by drag
 and drop or click "Open File" and select it using the file browser.
+
+Select a job in the workflow editor. Navigate to the volumes tab. Select
+the volume named `openfoam-data-volume`. Edit the egress parameter by specifying
+a destination for output file `motorbike-example-results.tar.gz`. Using the
+secrets drop-down, specify a secret which has permissions to write to your
+destination.
 
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
@@ -177,7 +183,7 @@ multinode:
   implementation: openmpi
 ```
 
-Finally, update the resource block of the jobs to use 8 cores. Each job 
+Finally, update the resource block of the jobs to use 8 cores. Each job
 mentioned should have a resource block as follows:
 
 ```text
