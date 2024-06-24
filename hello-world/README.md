@@ -8,7 +8,7 @@ on using a public Alpine container from Dockerhub.
 The following section walks through how to run the Fuzzball workflow
 `hello-world.yaml` using the CLI and GUI.
 
-### Using the CLI
+### Using the Fuzzball CLI
 
 To start this workflow using the CLI, run the following command:
 
@@ -45,7 +45,7 @@ $ fuzzball workflow logs 065e8665-f025-4247-8783-d4abdb7723be hello-world
 Hello, world! Hostname hello-world
 ```
 
-### Using the Fuzzball Web UI
+### Using the Fuzzball GUI
 
 Navigate to the workflow editor.
 
