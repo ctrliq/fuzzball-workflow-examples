@@ -2,24 +2,27 @@
 
 Version: 2212
 
-OpenFOAM is the free, open source CFD software developed primarily by OpenCFD
-Ltd since 2004. It has a large user base across most areas of engineering and
-science, from both commercial and academic organisations. OpenFOAM has an
-extensive range of features to solve anything from complex fluid flows involving
-chemical reactions, turbulence and heat transfer, to acoustics, solid mechanics
-and electromagnetics.
+[OpenFOAM](https://www.openfoam.com/) is the free, open source Computation Fluid
+Dynamics (CFD) software developed primarily by OpenCFD Ltd since 2004. It has a
+large user base across most areas of engineering and science, from both
+commercial and academic organisations. OpenFOAM has an extensive range of
+features to solve anything from complex fluid flows involving chemical reactions
+, turbulence and heat transfer, to acoustics, solid mechanics, and
+electromagnetics.
 
-The following workflow splits up the steps of the OpenFOAM motorbike tutorial
-example which runs solver simpleFoam into individual Fuzzball jobs. The workflow
-starts off by copying the example into a Fuzzball ephemeral volume. The workflow
-then runs single process tasks surfaceFeatureExtract, blockMesh, and
-decomposePar. Next, meshing (using snappyHexMesh) and topoSet are run using 6
-cores. Initial conditions for the simulation are set followed by another series
-of parallel tasks which include patchSummary, potentialFoam, checkMesh, and the
-simulation which executes solver simpleFoam. Finally, the mesh and partitions of
-the decomposed model are reconstructed using reconstructParMesh and
-reconstructPar respectively. Finally the case directory is compressed and
-egressed from the workflow to a destination of the user's choice.
+The following workflow splits up the steps of the
+[canonical OpenFOAM motorbike tutorial](https://develop.openfoam.com/Development/openfoam/-/tree/master/tutorials/incompressible/simpleFoam/motorBike)
+into individual Fuzzball jobs. The workflow calcualates steady flow around a
+motorbike and its rider. It starts off by copying the example into a Fuzzball
+ephemeral volume. Then, it runs single process tasks `surfaceFeatureExtract`,
+`blockMesh`, and `decomposePar`. Next, meshing (using `snappyHexMesh`) and
+`topoSet` are run using 6 cores. Initial conditions for the simulation are set
+followed by another series of parallel tasks which include `patchSummary`,
+`potentialFoam`, `checkMesh`, and the simulation which executes solver
+`simpleFoam`. Finally, the mesh and partitions of the decomposed model are
+reconstructed using `reconstructParMesh` and `reconstructPar` respectively. The
+case directory is compressed and saved from the workflow's ephemeral volume to a
+destination of the user's choice.
 
 All steps of the workflow use an OpenFOAM container on
 [Dockerhub](https://hub.docker.com/r/opencfd/openfoam-default) published by
@@ -27,7 +30,7 @@ OpenCFD.
 
 ## Prerequsites
 
-This workflow egresses an output file. In order to write the output file to a S3
+This workflow saves an output file. In order to write the output file to a S3
 bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
 secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
 instructions on how to set one up.
@@ -45,7 +48,7 @@ First update the workflow's egress destination with a S3 URI and Fuzzball secret
 names the output file `motorbike-example-results.tar.gz`. The credentials used
 to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
 
-```text
+```yaml
 volumes:
   openfoam-data-volume:
     name: openfoam-data-volume
@@ -68,7 +71,7 @@ Workflow "9324e249-33d3-4424-8867-27d67b6f98a3" started.
 To monitor the workflow's status, run the following command:
 
 ```text
-$ fuzzball workflow describe 9324e249-33d3-4424-8867-27d67b6f98a3
+$ fuzzball workflow describe <workflow uuid>
 Name:      openfoam-motorbike-mpi.yaml
 Email:     bphan@ciq.co
 UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
@@ -103,7 +106,7 @@ To view outputs logged by the workflow, use the `fuzzball workflow log` command.
 Provide the workflow UUID and job name. For example:
 
 ```text
-$ fuzzball workflow logs 9324e249-33d3-4424-8867-27d67b6f98a3 set-initial-conditions
+$ fuzzball workflow logs <workflow-uuid> set-initial-conditions
 Restore 0/ from 0.orig/  [processor directories]
 ```
 
@@ -122,8 +125,8 @@ destination.
 
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
-After your workflow successfully start, you will be prompted to navigate to your
-workflow's status page where you can monitor the various steps of the workflow.
+After your workflow successfully starts, you will be prompted to navigate to the
+workflow status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select a job (for example,
 `setup-blockmesh-decompose-par`) and navigate to the logs tab.
@@ -154,9 +157,9 @@ visualizations using open source software ParaView.
 The following section will walk through how to run the parallel steps of the
 OpenFOAM motorbike tutorial workflow on more cores by modifying
 `openfoam-motorbike-mpi.yaml`. In this example, we will run the parallel steps
-using 8 cores and node 2 for a total of 16 cores.
+using 8 cores and 2 nodes for a total of 16 cores.
 
-First, in job `prepare-motorbike-case`, you will need to update input file
+First, in the job called `prepare-motorbike-case`, you will need to update the input file
 `motorBike/system/decomposeParDict` to decompose the model into 16 subdomains
 and update the coefficients in the file to 3 integers which are factors of 16
 (ex. 2, 2, and 4). You can update the contents of this file using the `sed`
