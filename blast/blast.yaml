@@ -3,12 +3,12 @@ volumes:
   blast-volume:
     name: blast-volume
     reference: volume://user/ephemeral
-    egress:
-      - source:
-          uri: file://results/blastp.out
-        destination:
-          uri:
-          secret:
+    # egress:
+    #   - source:
+    #       uri: file://results/blastp.out
+    #     destination:
+    #       uri:
+    #       secret:
 jobs:
   create-dirs:
     image:

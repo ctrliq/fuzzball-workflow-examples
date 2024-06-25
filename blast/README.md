@@ -1,6 +1,4 @@
-# BLAST
-
-Version: 2.12.0
+# BLAST (verion 2.12.0)
 
 [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) is both a genomic alignment
 algorithm and also a software implementation of said algorithm produced by the
@@ -13,16 +11,9 @@ they are.
 The workflow uses some of the BLAST tooling to pull one set of sequences for
 querying and another set of sequences for building a database, builds the
 database, and then executes the query. It generates output file
-`results/blastp.out` which can be egressed to a path defined in a S3 URI.
-All steps of the workflow use a BLAST container published by NCBI on
+`results/blastp.out` which can be egressed to a path defined in a S3 URI. All
+steps of the workflow use a BLAST container published by NCBI on
 [Dockerhub](https://hub.docker.com/r/ncbi/blast).
-
-## Prerequsites
-
-This workflow egresses an output file. In order to write the output file to a S3
-bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
-secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
-instructions on how to set one up.
 
 ## Running the Workflow
 
@@ -31,25 +22,6 @@ The following section walks through how to run the Fuzzball workflow
 
 ### Using the Fuzzball CLI
 
-First update the workflow's egress destination with a S3 URI and Fuzzball secret
-. The volumes block below writes workflow output file `results/blastp.out` to
-destination `s3://my-bucket/my-dir/` and names the output file
-`my-blastp-results.out`. The credentials used to egress this file is Fuzzball
-user secret `secret://user/my-s3-bucket-secret`.
-
-```text
-volumes:
-  blast-volume:
-    name: blast-volume
-    reference: volume://user/ephemeral
-    egress:
-      - source:
-          uri: file://results/blastp.out
-        destination:
-          uri: s3:s3://my-bucket/my-dir/my-blastp-results.out
-          secret: secret://user/my-s3-bucket-secret
-```
-
 To start this workflow using the CLI, run the following command:
 
 ```text
@@ -57,10 +29,10 @@ $ fuzzball workflow start blast.yaml
 Workflow "8ae68827-4bce-45c6-ab0c-9f086a8052fb" started.
 ```
 
-To monitor the workflow's status, run the following command:
+To monitor the workflow status, run the following command:
 
 ```text
-$ fuzzball workflow describe 8ae68827-4bce-45c6-ab0c-9f086a8052fb 
+$ fuzzball workflow describe <workflow uuid> 
 Name:      blast.yaml
 Email:     bphan@ciq.co
 UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
@@ -89,7 +61,7 @@ To view outputs logged by the workflow, use the `fuzzball workflow log` command.
 Provide the workflow UUID and job name. For example:
 
 ```text
-$ fuzzball workflow log 8ae68827-4bce-45c6-ab0c-9f086a8052fb make-blast-database
+$ fuzzball workflow log <workflow uuid> make-blast-database
 Building a new DB, current time: 06/18/2024 16:42:26
 New DB name:   /data/fasta/nurse-shark-proteins
 New DB title:  Nurse shark proteins
@@ -103,32 +75,68 @@ Adding sequences from FASTA; added 7 sequences in 0.244187 seconds.
 
 Navigate to the workflow editor.
 
-Open the workflow YAML `blast.yaml` in the Fuzzball GUI by drag and drop
-or click "Open File" and select it using the file browser.
+Open the workflow YAML `blast.yaml` in the Fuzzball GUI by drag and drop or
+click "Open File" and select it using the file browser.
 
-Select a job in the workflow editor. Navigate to the volumes tab. Select
-the volume named `blast-volume`. Edit the egress parameter by specifying a
-destination for output file `results/blastp.out`. Using the secrets drop-down,
-specify a secret which has permissions to write to your destination.
-
-Start the workflow by clicking play button. You will be prompted to name your
+Start the workflow by clicking the play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
-After your workflow successfully start, you will be prompted to navigate to your
-workflow's status page where you can monitor the various steps of the workflow.
+After your workflow successfully starts, you will be prompted to navigate to the
+workflow status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select a job (for example,`run-blast`)
 and navigate to the logs tab.
 
+## Saving Results
+
+This workflow can save an output file to a destination of the user's choice.
+This section walks through the steps required to save the results output.
+
+### Prerequisites
+
+In order to write the output file to a S3 bucket, you may need access to a
+Fuzzball S3 secret. Please see the
+[Fuzzball secrets guide](https://integration.ciq.dev/docs/user-guide/secrets)
+for instructions on how to set one up.
+
+### Using the Fuzzball CLI
+
+Update the workflow egress destination with a S3 URI and Fuzzball secret. The
+volumes block below writes workflow output file
+`results/blastp.out` to destination `s3://my-bucket/my-dir/` and
+names the output file `results/blastp.out`. The credentials used
+to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
+
+```yaml
+volumes:
+  blast-volume:
+    name: blast-volume
+    reference: volume://user/ephemeral
+    egress:
+      - source:
+          uri: file://results/blastp.out
+        destination:
+          uri: s3://my-bucket/my-dir/results/blastp.out
+          secret: secret://user/my-s3-bucket-secret
+```
+
+### Using the Fuzzball GUI
+
+After opening the workflow in the Fuzzball GUI, select a job in the workflow
+editor. Navigate to the volumes tab. Select the volume named `blast-volume`.
+Edit the egress parameter by specifying a destination for output file
+`results/blastp.out`. Using the secrets drop-down, specify a secret which has
+permissions to write to your destination.
+
 ### Viewing Results
 
 The CLI example above has egressed result file `results/blastp.out` to an S3
-bucket at destination `s3://co-ciq-misc-support/bphan/blastp-valid-results.out`.
+bucket at destination `s3://my-bucket/my-dir/results//blastp-valid-results.out`.
 To pull down the result file to your working directory, the AWS CLI will be
 used.
 
 ```text
-$ aws s3 cp s3://co-ciq-misc-support/bphan/blastp-valid-results.out . 
-download: s3://co-ciq-misc-support/bphan/blastp-valid-results.out to ./blastp-valid-results.out
+$ aws s3 cp s3://my-bucket/my-dir/results//blastp-valid-results.out . 
+download: s3://my-bucket/my-dir/results//blastp-valid-results.out to ./blastp-valid-results.out
 ```
 
 To view the results, we will use the `cat` command.
