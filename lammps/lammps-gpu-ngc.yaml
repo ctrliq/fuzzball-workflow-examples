@@ -8,12 +8,12 @@ volumes:
           uri: https://www.lammps.org/inputs/in.lj.txt
         destination:
           uri: file://in.lj.txt
-    egress:
-      - source:
-          uri: file://log.lammps
-        destination:
-          uri:
-          secret:
+    # egress:
+    #   - source:
+    #       uri: file://log.lammps
+    #     destination:
+    #       uri:
+    #       secret:
 jobs:
   run-lammps:
     image:
