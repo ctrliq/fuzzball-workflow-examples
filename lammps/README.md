@@ -1,6 +1,4 @@
-# LAMMPS
-
-Version: 29Sep2021
+# LAMMPS (version 29Sep2021)
 
 [LAMMPS](https://www.lammps.org/) is a popular molecular dynamics suite produced
 by Sandia National Laboratories. LAMMPS simulates interactions between atoms and
@@ -10,12 +8,11 @@ very small timescales.
 
 The following LAMMPS workflow runs a standard Lenard-Jones 3D melt experiment
 and saves the log file using a LAMMPS container from Nvidia's NGC catalog on
-a single node with a GPU. The log file contains simulation and benchmark results
-.
+a single node with a GPU. The log file contains simulation and benchmark results.
 
 ## Running the Workflow
 
-The following section walks through how to run the Fuzzball workflow
+The following section walks through the process of running the Fuzzball workflow
 `lammps-gpu-ngc.yaml` using the CLI and GUI.
 
 ### Using the Fuzzball CLI
@@ -27,7 +24,7 @@ $ fuzzball workflow start lammps-gpu-ngc.yaml
 Workflow "45d81a83-dd54-4052-afab-09dd3216abbe" started.
 ```
 
-To monitor the workflow's status, run the following command:
+To monitor the workflow status, run the following command:
 
 ```text
 $ fuzzball workflow describe <workflow uuid>
@@ -121,8 +118,8 @@ Navigate to the workflow editor.
 Open the workflow YAML `lammps-gpu-ngc.yaml` in the Fuzzball GUI by drag and
 drop or click "Open File" and select it using the file browser.
 
-Start the workflow by clicking play button. You will be prompted to name your
-workflow. After providing a name for your workflow, click "Start Workflow".
+Start the workflow by clicking the play button. You will be prompted to name
+your workflow. After providing a name for your workflow, click "Start Workflow".
 After your workflow successfully starts, you will be prompted to navigate to the
 workflow status page where you can monitor the various steps of the workflow.
 
@@ -144,7 +141,7 @@ for instructions on how to set one up.
 
 ### Using the Fuzzball CLI
 
-Update the workflow's egress destination with a S3 URI and Fuzzball secret. The
+Update the workflow egress destination with a S3 URI and Fuzzball secret. The
 volumes block below writes workflow output file `log.lammps` to destination
 `s3://my-bucket/my-dir/` and names the output file `log.lammps`. The credentials
 used to egress this file is Fuzzball user secret
