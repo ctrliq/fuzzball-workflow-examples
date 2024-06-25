@@ -64,11 +64,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; snappyHexMesh -overwrite -parallel;"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
@@ -88,11 +88,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; topoSet -parallel;"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
@@ -133,11 +133,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; patchSummary -parallel;"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
@@ -157,11 +157,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; potentialFoam -writephi -parallel"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
@@ -181,11 +181,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; checkMesh -parallel -writeFields '(nonOrthoAngle)' -constant"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
@@ -205,11 +205,11 @@ jobs:
       - OMPI_MCA_pml=^ucx
     command: ["/bin/bash", "-c", "source $WM_PROJECT_DIR/etc/bashrc; simpleFoam -parallel"]
     multinode:
-      nodes: 1
+      nodes: 1 # Update nodes such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
       implementation: openmpi
     resource:
       cpu:
-        cores: 6
+        cores: 6 # Update cores such that nodes * cores = numSubDomains if you are editting file decomposeParDict to run on more cores
         affinity: NUMA
       memory:
         size: 4GiB
