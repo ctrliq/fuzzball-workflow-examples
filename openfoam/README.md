@@ -1,6 +1,4 @@
-# OpenFOAM - MotorBike Example
-
-Version: 2212
+# OpenFOAM (version 2212) - MotorBike Example
 
 [OpenFOAM](https://www.openfoam.com/) is the free, open source Computation Fluid
 Dynamics (CFD) software developed primarily by OpenCFD Ltd since 2004. It has a
@@ -21,8 +19,8 @@ followed by another series of parallel tasks which include `patchSummary`,
 `potentialFoam`, `checkMesh`, and the simulation which executes solver
 `simpleFoam`. Finally, the mesh and partitions of the decomposed model are
 reconstructed using `reconstructParMesh` and `reconstructPar` respectively. The
-case directory is compressed and saved from the workflow's ephemeral volume to a
-destination of the user's choice.
+case directory is compressed and saved from the ephemeral volume of the workflow
+to a destination of the user's choice.
 
 All steps of the workflow use an OpenFOAM container on
 [Dockerhub](https://hub.docker.com/r/opencfd/openfoam-default) published by
@@ -30,8 +28,8 @@ OpenCFD.
 
 ## Running the Workflow
 
-The following section walks through how to run the Fuzzball workflow
-`openfoam-motorbike-mpi.yaml` using the CLI and GUI.
+The following section walks through the process of how to run the Fuzzball
+workflow `openfoam-motorbike-mpi.yaml` using the CLI and GUI.
 
 ### Using the Fuzzball CLI
 
@@ -42,7 +40,7 @@ $ fuzzball workflow start openfoam-motorbike-mpi.yaml
 Workflow "9324e249-33d3-4424-8867-27d67b6f98a3" started.
 ```
 
-To monitor the workflow's status, run the following command:
+To monitor the workflow status, run the following command:
 
 ```text
 $ fuzzball workflow describe <workflow uuid>
@@ -91,7 +89,7 @@ Navigate to the workflow editor.
 Open the workflow YAML `openfoam-motorbike-mpi.yaml` in the Fuzzball GUI by drag
 and drop or click "Open File" and select it using the file browser.
 
-Start the workflow by clicking play button. You will be prompted to name your
+Start the workflow by clicking the play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
 After your workflow successfully starts, you will be prompted to navigate to the
 workflow status page where you can monitor the various steps of the workflow.
@@ -113,8 +111,8 @@ for instructions on how to set one up.
 
 ### Using the Fuzzball CLI
 
-Update the workflow's egress destination with a S3 URI and Fuzzball secret
-. The volumes block below writes workflow output file
+Update the workflow egress destination with a S3 URI and Fuzzball secret. The
+volumes block below writes workflow output file
 `motorbike-example-results.tar.gz` to destination `s3://my-bucket/my-dir/` and
 names the output file `motorbike-example-results.tar.gz`. The credentials used
 to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
