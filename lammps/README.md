@@ -9,12 +9,13 @@ interactions, biological processes, nuclear fuels, and other interactions over
 very small timescales.
 
 The following LAMMPS workflow runs a standard Lenard-Jones 3D melt experiment
-and egresses the log file using a LAMMPS container from Nvidia's NGC catalog on
-a single node with a GPU.
+and saves the log file using a LAMMPS container from Nvidia's NGC catalog on
+a single node with a GPU. The log file contains simulation and benchmark results
+.
 
 ## Prerequsites
 
-This workflow egresses an output file. In order to write the output file to a S3
+This workflow saves an output file. In order to write the output file to a S3
 bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
 secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
 instructions on how to set one up.
@@ -60,7 +61,7 @@ Workflow "45d81a83-dd54-4052-afab-09dd3216abbe" started.
 To monitor the workflow's status, run the following command:
 
 ```text
-$ fuzzball workflow describe 45d81a83-dd54-4052-afab-09dd3216abbe
+$ fuzzball workflow describe <workflow uuid>
 Name:      lammps-gpu-ngc.yaml
 Email:     bphan@ciq.co
 UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
@@ -158,7 +159,7 @@ secret which has permissions to write to your destination.
 
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
-After your workflow successfully start, you will be prompted to navigate to your
+After your workflow successfully starts, you will be prompted to navigate to your
 workflow's status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select job `run-lammps` and navigate to
@@ -166,7 +167,7 @@ the logs tab.
 
 ### Viewing Results
 
-The CLI example above has egressed result file `log.lammps` to an S3 bucket at
+The CLI example above has saved result file `log.lammps` to an S3 bucket at
 destination `s3://co-ciq-misc-support/bphan/log.lammps`. To pull down the result
 file to your working directory, the AWS CLI will be used.
 
