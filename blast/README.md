@@ -1,6 +1,4 @@
-# BLAST
-
-Version: 2.12.0
+# BLAST (verion 2.12.0)
 
 [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) is both a genomic alignment
 algorithm and also a software implementation of said algorithm produced by the
@@ -13,8 +11,8 @@ they are.
 The workflow uses some of the BLAST tooling to pull one set of sequences for
 querying and another set of sequences for building a database, builds the
 database, and then executes the query. It generates output file
-`results/blastp.out` which can be egressed to a path defined in a S3 URI.
-All steps of the workflow use a BLAST container published by NCBI on
+`results/blastp.out` which can be egressed to a path defined in a S3 URI. All
+steps of the workflow use a BLAST container published by NCBI on
 [Dockerhub](https://hub.docker.com/r/ncbi/blast).
 
 ## Running the Workflow
@@ -31,10 +29,10 @@ $ fuzzball workflow start blast.yaml
 Workflow "8ae68827-4bce-45c6-ab0c-9f086a8052fb" started.
 ```
 
-To monitor the workflow's status, run the following command:
+To monitor the workflow status, run the following command:
 
 ```text
-$ fuzzball workflow describe 8ae68827-4bce-45c6-ab0c-9f086a8052fb 
+$ fuzzball workflow describe <workflow uuid> 
 Name:      blast.yaml
 Email:     bphan@ciq.co
 UserId:    e554e134-bd2d-455b-896e-bc24d8d9f81e
@@ -63,7 +61,7 @@ To view outputs logged by the workflow, use the `fuzzball workflow log` command.
 Provide the workflow UUID and job name. For example:
 
 ```text
-$ fuzzball workflow log 8ae68827-4bce-45c6-ab0c-9f086a8052fb make-blast-database
+$ fuzzball workflow log <workflow uuid> make-blast-database
 Building a new DB, current time: 06/18/2024 16:42:26
 New DB name:   /data/fasta/nurse-shark-proteins
 New DB title:  Nurse shark proteins
@@ -90,8 +88,8 @@ and navigate to the logs tab.
 
 ## Saving Results
 
-This workflow can save the results tarball to a destination of the user's choice
-. The section walks through the steps required to save the results output.
+This workflow can save an output file to a destination of the user's choice.
+This section walks through the steps required to save the results output.
 
 ### Prerequisites
 
