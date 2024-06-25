@@ -56,7 +56,7 @@ File     | Finished | file://log.lammps ->                    | 2024-06-21 09:26
 To view outputs logged by the workflow, execute the following command:
 
 ```text
-$ fuzzball workflow logs 45d81a83-dd54-4052-afab-09dd3216abbe run-lammps
+$ fuzzball workflow logs <workflow uuid> run-lammps
 LAMMPS (29 Sep 2021)
 KOKKOS mode is enabled (src/KOKKOS/kokkos.cpp:97)
   will use up to 1 GPU(s) per node
@@ -123,18 +123,24 @@ drop or click "Open File" and select it using the file browser.
 
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
-After your workflow successfully starts, you will be prompted to navigate to your
-workflow's status page where you can monitor the various steps of the workflow.
+After your workflow successfully starts, you will be prompted to navigate to the
+workflow status page where you can monitor the various steps of the workflow.
 
 To view outputs logged by the workflow, select job `run-lammps` and navigate to
 the logs tab.
 
 ## Saving Results
 
-This workflow saves an output file. In order to write the output file to a S3
-bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
-secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
-instructions on how to set one up.
+This workflow can save the LAMMPS log file with simulation and benchmark results
+to a destination of the user's choice. The section walks through the steps
+required to save the log file.
+
+### Prerequisites
+
+In order to write the output file to a S3 bucket, you may need access to a
+Fuzzball S3 secret. Please see the
+[Fuzzball secrets guide](https://integration.ciq.dev/docs/user-guide/secrets)
+for instructions on how to set one up.
 
 ### Using the Fuzzball CLI
 
