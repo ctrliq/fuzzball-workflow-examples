@@ -28,38 +28,12 @@ All steps of the workflow use an OpenFOAM container on
 [Dockerhub](https://hub.docker.com/r/opencfd/openfoam-default) published by
 OpenCFD.
 
-## Prerequsites
-
-This workflow saves an output file. In order to write the output file to a S3
-bucket, you may need access to a Fuzzball S3 secret. Please see the [Fuzzball
-secrets guide](https://integration.ciq.dev/docs/user-guide/secrets) for
-instructions on how to set one up.
-
 ## Running the Workflow
 
 The following section walks through how to run the Fuzzball workflow
 `openfoam-motorbike-mpi.yaml` using the CLI and GUI.
 
 ### Using the Fuzzball CLI
-
-First update the workflow's egress destination with a S3 URI and Fuzzball secret
-. The volumes block below writes workflow output file
-`motorbike-example-results.tar.gz` to destination `s3://my-bucket/my-dir/` and
-names the output file `motorbike-example-results.tar.gz`. The credentials used
-to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
-
-```yaml
-volumes:
-  openfoam-data-volume:
-    name: openfoam-data-volume
-    reference: volume://user/ephemeral
-    egress:
-      - source:
-          uri: file://motorbike-example-results.tar.gz
-        destination:
-          uri: s3://my-bucket/my-dir/motorbike-example-results.tar.gz
-          secret: secret://user/my-s3-bucket-secret
-```
 
 To start this workflow using the CLI, run the following command:
 
@@ -117,12 +91,6 @@ Navigate to the workflow editor.
 Open the workflow YAML `openfoam-motorbike-mpi.yaml` in the Fuzzball GUI by drag
 and drop or click "Open File" and select it using the file browser.
 
-Select a job in the workflow editor. Navigate to the volumes tab. Select
-the volume named `openfoam-data-volume`. Edit the egress parameter by specifying
-a destination for output file `motorbike-example-results.tar.gz`. Using the
-secrets drop-down, specify a secret which has permissions to write to your
-destination.
-
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
 After your workflow successfully starts, you will be prompted to navigate to the
@@ -131,16 +99,57 @@ workflow status page where you can monitor the various steps of the workflow.
 To view outputs logged by the workflow, select a job (for example,
 `setup-blockmesh-decompose-par`) and navigate to the logs tab.
 
+## Saving Results
+
+This workflow can save the results tarball to a destination of the user's choice
+. The section walks through the steps required to save the results tarball.
+
+### Prerequisites
+
+In order to write the output file to a S3 bucket, you may need access to a
+Fuzzball S3 secret. Please see the
+[Fuzzball secrets guide](https://integration.ciq.dev/docs/user-guide/secrets)
+for instructions on how to set one up.
+
+### Using the Fuzzball CLI
+
+Update the workflow's egress destination with a S3 URI and Fuzzball secret
+. The volumes block below writes workflow output file
+`motorbike-example-results.tar.gz` to destination `s3://my-bucket/my-dir/` and
+names the output file `motorbike-example-results.tar.gz`. The credentials used
+to egress this file is Fuzzball user secret `secret://user/my-s3-bucket-secret`.
+
+```yaml
+volumes:
+  openfoam-data-volume:
+    name: openfoam-data-volume
+    reference: volume://user/ephemeral
+    egress:
+      - source:
+          uri: file://motorbike-example-results.tar.gz
+        destination:
+          uri: s3://my-bucket/my-dir/motorbike-example-results.tar.gz
+          secret: secret://user/my-s3-bucket-secret
+```
+
+### Using the Fuzzball GUI
+
+After opening the workflow in the Fuzzball GUI, select a job in the workflow
+editor. Navigate to the volumes tab. Select the volume named
+`openfoam-data-volume`. Edit the egress parameter by specifying a destination
+for output file `motorbike-example-results.tar.gz`. Using the secrets drop-down,
+specify a secret which has permissions to write to your destination.
+
 ### Viewing Results
 
-The CLI example above has egressed result file `motorbike-example-results.tar.gz`
+The YAML example above has egressed result file `motorbike-example-results.tar.gz`
 to an S3 bucket at destination
-`s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz`. To pull down
-the result file to your working directory, the AWS CLI will be used.
+`s3://my-bucket/my-dir/motorbike-example-results.tar.gz`. To pull down the
+result file to your working directory, the AWS CLI will be used.
 
 ```text
-$ aws s3 cp s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz . 
-download: s3://co-ciq-misc-support/bphan/motorbike-example-results.tar.gz to ./motorbike-example-results.tar.gz
+$ aws s3 cp s3://my-bucket/my-dir/motorbike-example-results.tar.gz . 
+download: s3://my-bucket/my-dir/motorbike-example-results.tar.gz to ./motorbike-example-results.tar.gz
 ```
 
 The results archived can be decompressed using command:

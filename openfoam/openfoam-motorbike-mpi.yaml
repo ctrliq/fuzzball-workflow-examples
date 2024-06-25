@@ -3,12 +3,12 @@ volumes:
   openfoam-data-volume:
     name: openfoam-data-volume
     reference: volume://user/ephemeral
-    egress:
-      - source:
-          uri: file://motorbike-example-results.tar.gz
-        destination:
-          uri:
-          secret:
+    # egress:
+    #   - source:
+    #       uri: file://motorbike-example-results.tar.gz
+    #     destination:
+    #       uri:
+    #       secret:
 
 jobs:
 
