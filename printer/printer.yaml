@@ -1,0 +1,18 @@
+version: v1
+jobs:
+  printer:
+    image:
+      uri: docker://alpine:latest
+    policy:
+      timeout:
+        execute: 10m0s
+    command:
+      - /bin/sh
+      - '-c'
+      - for i in $(seq 1 300); do echo $i; sleep 1; done
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GB
