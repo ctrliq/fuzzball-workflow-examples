@@ -1,0 +1,22 @@
+version: v1
+jobs:
+  printer:
+    image:
+      uri: docker://alpine:latest
+    policy:
+      timeout:
+        execute: 10m0s
+    env:
+      - PRINTER_START_INT=1
+      - PRINTER_END_INT=300
+      - PRINTER_SLEEP_INTERVAL=1
+    command:
+      - /bin/sh
+      - '-c'
+      - for i in $(seq $PRINTER_START_INT $PRINTER_END_INT); do echo $i; sleep $PRINTER_SLEEP_INTERVAL; done
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GB
