@@ -9,8 +9,8 @@ You will need a Fuzzball account, and one of the following to interact with Fuzz
 ### Fuzzball web-based Graphical User Interface (GUI)
 
 If you plan to run these workflows using the Fuzzball GUI, first clone this repository. Next, see
-the [Fuzzball in 15 minutes guide](https://beta.fuzzball.io) and navigate to the GUI tab to get your
-environment set up.
+the [Fuzzball in 15 minutes guide](https://beta.fuzzball.io/quick-start/) and navigate to the GUI
+tab to get your environment set up.
 
 After signing into the Fuzzball GUI and selecting an account, you are ready to begin creating and
 submitting workflows. Workflows can be loaded into the GUI by dragging and dropping the YAML 
