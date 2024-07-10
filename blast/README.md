@@ -75,8 +75,8 @@ Adding sequences from FASTA; added 7 sequences in 0.244187 seconds.
 
 Navigate to the workflow editor.
 
-Open the workflow YAML `blast.yaml` in the Fuzzball GUI by drag and drop or
-click "Open File" and select it using the file browser.
+Open the workflow specification file (Fuzzfile) `blast.yaml` in the Fuzzball GUI
+by drag and drop or click "Open File" and select it using the file browser.
 
 Start the workflow by clicking the play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".

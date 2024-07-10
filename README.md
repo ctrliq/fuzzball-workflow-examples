@@ -26,8 +26,8 @@ and navigate to the GUI tab to get your environment set up.
 
 After signing into the Fuzzball GUI and selecting an account, you are aready to
 begin creating and submitting workflows. Workflows can be loaded into the GUI
-by dragging and dropping the workflow YAML files into the GUI or opening them
-through the file browser.
+by dragging and dropping the workflow specification files (Fuzzfiles) into
+the GUI or opening them through the file browser.
 
 ## Contact Us
 
