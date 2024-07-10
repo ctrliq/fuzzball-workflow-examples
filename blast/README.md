@@ -95,7 +95,7 @@ This section walks through the steps required to save the results output.
 
 In order to write the output file to a S3 bucket, you may need access to a
 Fuzzball S3 secret. Please see the
-[Fuzzball secrets guide](https://integration.ciq.dev/docs/user-guide/secrets)
+[Fuzzball secrets guide](https://beta.fuzzball.io/docs/user-guide/secrets)
 for instructions on how to set one up.
 
 ### Using the Fuzzball CLI
@@ -216,4 +216,4 @@ Window for multiple hits: 40
 
 For more information on how to extend this workflow for your needs, please see
 the
-[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
+[Fuzzball workflow syntax guide](https://beta.fuzzball.io/docs/appendices/workflow-syntax/).

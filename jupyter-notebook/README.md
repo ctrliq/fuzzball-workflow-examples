@@ -95,7 +95,7 @@ the logs tab.
 
 To access the Jupyter environment through your browser, you will need access to
 the Fuzzball CLI. If you have not installed the Fuzzball CLI, please see the
-[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
+[Fuzzball quick start guide](https://beta.fuzzball.io/docs/user-guide/quick-start/)
 to set it up.
 
 Using the Fuzzball CLI, we will use the Fuzzball workflow port-forward
@@ -144,4 +144,4 @@ Click the `Cancel` button to stop your workflow.
 
 For more information on how to extend this workflow for your needs, please see
 the
-[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
+[Fuzzball workflow syntax guide](https://beta.fuzzball.io/docs/appendices/workflow-syntax/).
