@@ -1,35 +1,31 @@
-# Fuzzball Workflow Examples
+# [Fuzzball](https://ciq.com/products/fuzzball/) Workflow Examples
 
-The following respository contains a collection of example workflows which can
-be run on CIQ's product, [Fuzzball](https://ciq.com/products/fuzzball/).
+Welcome! Here is a collection of example workflows which can be executed on CIQ's product, Fuzzball!
 
 ## Prerequsities
 
-The following section walks through how to set up the Fuzzball CLI and GUI.
+You will need a Fuzzball account, and one of the following to interact with Fuzzball.
 
-### Fuzzball CLI
+### Fuzzball web-based Graphical User Interface (GUI)
 
-If you plan to run these workflows using the Fuzzball CLI please see the
-[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
-and navigate to the CLI tab to get your environment set up.
+If you plan to run these workflows using the Fuzzball GUI, first clone this repository. Next, see
+the [Fuzzball in 15 minutes guide](https://beta.fuzzball.io) and navigate to the GUI tab to get your
+environment set up.
 
-After following the Fuzzball CLI quick start guide to get the CLI installed,
-create your context, and log into your context, you are ready to begin
-submitting jobs with the Fuzzball CLI.
+After signing into the Fuzzball GUI and selecting an account, you are ready to begin creating and
+submitting workflows. Workflows can be loaded into the GUI by dragging and dropping the YAML 
+Fuzzfiles into the GUI or opening them through the file browser.
 
-### Fuzzball GUI
+### Fuzzball Command Line Interface (CLI)
 
-If you plan to run these workflows using the Fuzzball GUI, first clone this
-repository. Next, see the
-[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
-and navigate to the GUI tab to get your environment set up.
+If you plan to run these workflows using the Fuzzball CLI please see the [Fuzzball CLI installation
+guide](https://beta.fuzzball.io/docs/appendices/cli-installation/) to get your environment set up.
 
-After signing into the Fuzzball GUI and selecting an account, you are aready to
-begin creating and submitting workflows. Workflows can be loaded into the GUI
-by dragging and dropping the workflow YAML files into the GUI or opening them
-through the file browser.
+After installing the CLI, [creating your context, and logging
+in](https://beta.fuzzball.io/docs/quick-start/uqs-logging-in/), you are ready to begin submitting
+jobs with the Fuzzball CLI!
 
 ## Contact Us
 
-If you are interested in using Fuzzball, please reach out to us through our
-[contact us page](https://ciq.com/company/contact-us/).
+If you are interested in using Fuzzball, please reach out to us through our [contact us
+page](https://ciq.com/company/contact-us/)!
