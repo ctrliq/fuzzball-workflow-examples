@@ -115,8 +115,9 @@ Total wall time: 0:00:13
 
 Navigate to the workflow editor.
 
-Open the workflow YAML `lammps-gpu-ngc.yaml` in the Fuzzball GUI by drag and
-drop or click "Open File" and select it using the file browser.
+Open the workflow specification file (Fuzzfile) `lammps-gpu-ngc.yaml` in the
+Fuzzball GUI by drag and drop or click "Open File" and select it using the file
+browser.
 
 Start the workflow by clicking the play button. You will be prompted to name
 your workflow. After providing a name for your workflow, click "Start Workflow".
@@ -136,7 +137,7 @@ required to save the log file.
 
 In order to write the output file to a S3 bucket, you may need access to a
 Fuzzball S3 secret. Please see the
-[Fuzzball secrets guide](https://integration.ciq.dev/docs/user-guide/secrets)
+[Fuzzball secrets guide](https://beta.fuzzball.io/docs/user-guide/secrets)
 for instructions on how to set one up.
 
 ### Using the Fuzzball CLI
@@ -253,4 +254,4 @@ compatible with LAMMPS.
 
 For more information on how to extend this workflow for your needs, please see
 the
-[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
+[Fuzzball workflow syntax guide](https://beta.fuzzball.io/docs/appendices/workflow-syntax/).

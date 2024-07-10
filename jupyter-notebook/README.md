@@ -80,8 +80,9 @@ $ fuzzball workflow log aa3b04f0-f245-4032-a7b1-5cef0acfaf6c jupyter
 
 Navigate to the workflow editor.
 
-Open the workflow YAML `jupyter-notebook.yaml` in the Fuzzball GUI by drag and drop
-or click "Open File" and select it using the file browser.
+Open the workflow specification file (Fuzzfile) `jupyter-notebook.yaml` in the
+uzzball GUI by drag and drop or click "Open File" and select it using the file
+browser.
 
 Start the workflow by clicking play button. You will be prompted to name your
 workflow. After providing a name for your workflow, click "Start Workflow".
@@ -95,7 +96,7 @@ the logs tab.
 
 To access the Jupyter environment through your browser, you will need access to
 the Fuzzball CLI. If you have not installed the Fuzzball CLI, please see the
-[Fuzzball quick start guide](https://integration.ciq.dev/docs/user-guide/quick-start/)
+[Fuzzball quick start guide](https://beta.fuzzball.io/docs/user-guide/quick-start/)
 to set it up.
 
 Using the Fuzzball CLI, we will use the Fuzzball workflow port-forward
@@ -144,4 +145,4 @@ Click the `Cancel` button to stop your workflow.
 
 For more information on how to extend this workflow for your needs, please see
 the
-[Fuzzball workflow syntax guide](https://integration.ciq.dev/docs/appendices/workflow-syntax/).
+[Fuzzball workflow syntax guide](https://beta.fuzzball.io/docs/appendices/workflow-syntax/).
