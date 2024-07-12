@@ -1,0 +1,17 @@
+version: v1
+jobs:
+  xfce4-desktop:
+    env:
+      - HOME=/tmp/home
+    image:
+      uri: oras://repository.ciq.com/internal-hpc-apps-testing/sifs/xfce4-desktop.sif:latest
+    command:
+      - /bin/sh
+      - '-c'
+      - /usr/local/bin/start-vncserver.sh
+    resource:
+      cpu:
+        cores: 2
+        affinity: NUMA
+      memory:
+        size: 2GB
