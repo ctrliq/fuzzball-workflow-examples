@@ -1,0 +1,20 @@
+version: v1
+jobs:
+  mpi-hello-world:
+    env:
+      - PATH=/usr/lib64/mpich/bin:/usr/local/bin:/usr/bin:/bin
+    image:
+      uri: oras://docker.io/anderbubble/mpich-hello-world.sif
+    command:
+      - /bin/sh
+      - '-c'
+      - mpi_hello_world
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GB
+    multinode:
+      nodes: 2
+      implementation: mpich
