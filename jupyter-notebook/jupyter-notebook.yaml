@@ -10,10 +10,13 @@ jobs:
     mounts:
       jupyter-volume:
         location: /data
+    env:
+      - HOME=/tmp/home
     command:
       - /bin/sh
       - '-c'
       - >-
+        export NB_USER=$(whoami); test -d $HOME || mkdir $HOME;
         /opt/conda/bin/jupyter notebook --ip=0.0.0.0 --allow-root --no-browser
         --NotebookApp.token=$JUPYTER_TOKEN --notebook-dir=/data
     resource:
