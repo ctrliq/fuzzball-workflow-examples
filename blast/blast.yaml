@@ -26,7 +26,7 @@ jobs:
         location: /data
   retrieve-query-sequence:
     image:
-      uri: docker://ncbi/blast:2.12.0
+      uri: docker://ncbi/edirect:20.6
     command: ["/bin/sh", "-c", "efetch -db protein -format fasta -id P01349 > P01349.fsa"]
     cwd: /data/queries
     resource:
@@ -41,7 +41,7 @@ jobs:
     requires: [create-dirs]
   retrieve-database-sequences:
     image:
-      uri: docker://ncbi/blast:2.12.0
+      uri: docker://ncbi/edirect:20.6
     command: ["/bin/sh", "-c", "efetch -db protein -format fasta -id Q90523,P80049,P83981,P83982,P83983,P83977,P83984,P83985,P27950 > nurse-shark-proteins.fsa"]
     cwd: /data/fasta
     resource:
