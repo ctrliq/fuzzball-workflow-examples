@@ -1,0 +1,14 @@
+version: v1
+jobs:
+  nvidia-hello-world:
+    image:
+      uri: docker://nvidia/dcgm:3.3.8-1-ubi9
+    command: ['/bin/sh', '-c', 'echo "Hello, world! Hostname ${HOSTNAME}"; nvidia-smi']
+    resource:
+      cpu:
+        cores: 1
+        affinity: NUMA
+      memory:
+        size: 1GB
+      devices:
+        nvidia.com/gpu: 1
